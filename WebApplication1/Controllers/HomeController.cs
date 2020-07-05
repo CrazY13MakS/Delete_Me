@@ -34,8 +34,9 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> Test([FromForm]string url)
         {
-            var response = await httpClient.GetAsync(url);
-            return Content(await response.Content.ReadAsStringAsync());
+            var urlResponse = await httpClient.GetAsync("https://localhost:44398/api/test/geturl");
+            var contentResponse = await httpClient.GetAsync(await urlResponse.Content.ReadAsStringAsync());
+            return Content(await contentResponse.Content.ReadAsStringAsync());
         }
 
         public IActionResult Privacy()
